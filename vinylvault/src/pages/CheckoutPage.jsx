@@ -83,7 +83,7 @@ const CheckoutPage = ({ cart, onClearCart }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="rewardsNumber"> Rewards Number</label>
+            <label htmlFor="rewardsNumber"> Rewards Number (8 digits)</label>
             <input
               type="text"
               name="rewardsNumber"

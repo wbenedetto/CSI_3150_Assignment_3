@@ -48,12 +48,18 @@ const CartDrawer = ({ isOpen, cart, onClose, onUpdateQuantity, onRemove }) => {
                       ${(item.price * item.quantity).toFixed(2)}
                     </p>
                     <div className="qty-controls">
-                      <button onClick={() => onUpdateQuantity(item.id, -1)}>
-                        -
+                      <button
+                        className="btn-qty"
+                        onClick={() => onUpdateQuantity(item.id, -1)}
+                      >
+                        &#x2796;
                       </button>
                       <span>{item.quantity}</span>
-                      <button onClick={() => onUpdateQuantity(item.id, 1)}>
-                        +
+                      <button
+                        className="btn-qty"
+                        onClick={() => onUpdateQuantity(item.id, 1)}
+                      >
+                        &#10133;
                       </button>
                       <button
                         className="btn-remove"

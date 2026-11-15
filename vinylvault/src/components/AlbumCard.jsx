@@ -19,6 +19,7 @@ const AlbumCard = ({ album, onAddToCart }) => {
         <h3 className="album-title">
           <Link to={`/album/${album.id}`}>{album.title}</Link>
         </h3>
+        <p className="album-artist">{album.artist}</p>
         <p className="album-price">
           $
           {typeof album.price === "number"

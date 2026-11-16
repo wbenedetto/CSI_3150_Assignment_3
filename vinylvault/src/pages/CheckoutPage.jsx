@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 const CheckoutPage = ({ cart, onClearCart }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [promoMessage, setPromoMessage] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -10,6 +13,7 @@ const CheckoutPage = ({ cart, onClearCart }) => {
     email: "",
     shippingAddress: "",
     city: "",
+    state: "",
     zipCode: "",
     cardNumber: "",
     expiration: "",
@@ -21,11 +25,22 @@ const CheckoutPage = ({ cart, onClearCart }) => {
     0,
   );
 
-  const taxes = subtotal * 0.06;
-  const total = subtotal + taxes;
+  const discount = promoApplied ? subtotal * 0.1 : 0;
+  const taxes = (subtotal - discount) * 0.06;
+  const total = subtotal - discount + taxes;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleApplyPromo = () => {
+    if (promoCode.trim() !== "") {
+      setPromoApplied(true);
+      setPromoMessage("Promo code applied.");
+    } else {
+      setPromoApplied(false);
+      setPromoMessage("Please enter a promo code.");
+    }
   };
 
   const handleSubmit = (e) => {
@@ -40,7 +55,10 @@ const CheckoutPage = ({ cart, onClearCart }) => {
         <h2>Order Placed Successfully</h2>
         <p>
           Thank you, {formData.fullName}! Your order has been successfully
-          placed. Thank you for shopping at VinylVault.
+          placed. A confirmation email will be sent to {formData.email}. Your
+          order will be shipped to {formData.shippingAddress}, {formData.city},{" "}
+          {formData.state} {formData.zipCode}. Thank you for shopping at
+          VinylVault. For questions please contact questions@vinylvault.com.
         </p>
         <Link className="btn btn-primary" to="/">
           Return to Home
@@ -138,6 +156,20 @@ const CheckoutPage = ({ cart, onClearCart }) => {
           </div>
 
           <div className="form-group">
+            <label htmlFor="state">
+              State <span className="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="state"
+              id="state"
+              required
+              value={formData.state}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="zipCode">
               {" "}
               Zip Code<span className="required">*</span>
@@ -221,9 +253,41 @@ const CheckoutPage = ({ cart, onClearCart }) => {
             ))}
           </ul>
           <hr />
+
+          <div className="promo-code">
+            <label htmlFor="promoCode">Promo Code</label>
+            <div className="promo-row">
+              <input
+                type="text"
+                id="promoCode"
+                placeholder="Enter promo code"
+                value={promoCode}
+                onChange={(e) => {
+                  setPromoCode(e.target.value);
+                  setPromoApplied(false);
+                  setPromoMessage("");
+                }}
+              />
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleApplyPromo}
+              >
+                Apply
+              </button>
+            </div>
+            <p>{promoMessage}</p>
+          </div>
           <div className="summary-row">
             <span>Subtotal:</span> <span>${subtotal.toFixed(2)}</span>
           </div>
+
+          {promoApplied && (
+            <div className="summary-row">
+              <span>Discount (10%):</span>
+              <span>-${discount.toFixed(2)}</span>
+            </div>
+          )}
           <div className="summary-row">
             <span>Estimated Tax (6%):</span> <span>${taxes.toFixed(2)}</span>
           </div>

@@ -558,6 +558,34 @@ body {
   margin-top: 0.5rem;
 }
 
+.promo-code {
+  margin-bottom: 1.5rem;
+}
+
+.promo-code label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.promo-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.promo-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.promo-code p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
   .detail-grid,
   .checkout-grid {

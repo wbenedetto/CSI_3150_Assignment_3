@@ -50,7 +50,7 @@ The root directory contains `index.html`, `package.json`, `vite.config.js`, and 
     - **Event:** `onOpenCart()` when cart button is clicked.
 
   - **`<Routes>`** : React Router  
-    Determines which page appears based on URL.
+     Determines which page appears based on URL.
     - **`<CatalogPage>`** — `src/pages/CatalogPage.jsx`  
       **Route:** `/`. Displays store title, description, genre filter buttons ("All", "Jazz", "Electronic", "Rock", "Classical"), and responsive album grid.
       - **State:** `selectedGenre` (String, currently selected genre, defaults to "All").
@@ -70,11 +70,11 @@ The root directory contains `index.html`, `package.json`, `vite.config.js`, and 
       - **Events:** `setQuantity(quantity)` when quantity changes, `onAddToCart(album, quantity)` when Add to Cart is clicked.
       - Uses `useParams()` to identify the selected album from the URL.
 
-    - **`<CheckoutPage>`** : `src/pages/CheckoutPage.jsx`  
-      **Route:** `/checkout`. Displays itemized order summary, calculated totals, shipping/payment form, and order confirmation.
-      - **State:** `formData` (Object, stores full name, address, city, postal code, and card details), `isSubmitted` (Boolean, tracks successful order submission).
-      - **Props:** `cart` (Array, current cart items), `onClearCart` (Function, empties cart).
-      - **Events:** `handleChange(event)` updates form inputs, `handleSubmit(event)` prevents page reload, validates required fields, clears cart through `onClearCart()`, and displays confirmation.
+    - **`<CheckoutPage>`** — `src/pages/CheckoutPage.jsx`  
+      **Route:** `/checkout`. Displays the itemized order summary, promo code entry, discount, calculated totals, shipping/payment form, and order confirmation.
+      - **State:** `formData` (Object, stores shipping, rewards, and payment details), `isSubmitted` (Boolean, tracks successful order submission), `promoCode` (String, stores the entered promo code), `promoApplied` (Boolean, tracks whether the 10% discount is applied), `promoMessage` (String, displays promo code feedback).
+      - **Props:** `cart` (Array, current cart items), `onClearCart` (Function, empties the cart).
+      - **Events:** `handleChange(event)` updates controlled form inputs; `handleApplyPromo()` applies a 10% discount for any non-empty code; `handleSubmit(event)` prevents page reload, clears the cart through `onClearCart()` after browser form validation, and displays confirmation.
 
   - **`<CartDrawer>`** : `src/components/CartDrawer.jsx`  
     Slide-over panel displaying cart items, quantities, individual prices, and calculated subtotal.
